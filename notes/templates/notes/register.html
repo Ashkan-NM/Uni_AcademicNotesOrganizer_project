@@ -1,0 +1,10 @@
+{% extends 'notes/base.html' %}
+{% block content %}
+<h3>ثبت نام کاربر جدید</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">ثبت نام</button>
+</form>
+<p><a href="{% url 'login' %}">حساب داری؟ وارد شو</a></p>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'notes/base.html' %}
+{% block content %}
+<h3>{{ title }} برای درس: {{ course.title }}</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">ذخیره</button>
+    <a href="{% url 'notes:note_list' course.id %}">انصراف</a>
+</form>
+{% endblock %}

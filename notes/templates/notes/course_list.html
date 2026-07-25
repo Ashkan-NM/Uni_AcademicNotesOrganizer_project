@@ -1,0 +1,44 @@
+{% extends 'notes/base.html' %}
+{% block content %}
+<h3>دروس من</h3>
+<a href="{% url 'notes:course_create' %}">➕ ایجاد درس جدید</a>
+
+{% for course in courses %}
+    <div class="course-item" style="border:1px solid #ccc; margin:10px 0; padding:10px;">
+        <div onclick="toggleNotes('{{ course.id }}')" style="cursor:pointer; background:#eef; padding:8px;">
+            <strong>{{ course.title }}</strong> ({{ course.notes.count }} جزوه)
+            <span style="float:left;">
+                <a href="{% url 'notes:course_edit' course.id %}">ویرایش</a>
+                <a href="{% url 'notes:course_delete' course.id %}">حذف</a>
+            </span>
+        </div>
+        <div id="notes-{{ course.id }}" style="display: none; margin-top:10px; margin-right:20px;">
+            <a href="{% url 'notes:note_create' course.id %}">➕ افزودن جزوه به این درس</a>
+            <ul>
+                {% for note in course.notes.all %}
+                    <li>
+                        {{ note.title }} 
+                        <a href="{% url 'notes:note_edit' note.id %}">✏️</a>
+                        <a href="{% url 'notes:note_delete' note.id %}">❌</a>
+                    </li>
+                {% empty %}
+                    <li>هیچ جزوه‌ای نیست.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% empty %}
+    <p>هیچ درسی ثبت نشده است. اولین درس را بسازید!</p>
+{% endfor %}
+
+<script>
+function toggleNotes(courseId) {
+    var div = document.getElementById('notes-' + courseId);
+    if (div.style.display === 'none' || div.style.display === '') {
+        div.style.display = 'block';
+    } else {
+        div.style.display = 'none';
+    }
+}
+</script>
+{% endblock %}

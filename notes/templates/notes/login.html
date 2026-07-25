@@ -1,0 +1,10 @@
+{% extends 'notes/base.html' %}
+{% block content %}
+<h3>ورود به حساب کاربری</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">ورود</button>
+</form>
+<p><a href="{% url 'register' %}">ثبت نام نکردی؟ کلیک کن</a></p>
+{% endblock %}

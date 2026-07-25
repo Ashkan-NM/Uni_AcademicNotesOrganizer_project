@@ -1,0 +1,9 @@
+{% extends 'notes/base.html' %}
+{% block content %}
+<h3>آیا از حذف {{ type }} "{{ object.title }}" مطمئن هستید؟</h3>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" style="background:red;">بله، حذف کن</button>
+    <a href="javascript:history.back()">انصراف</a>
+</form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'notes/base.html' %}
+{% block content %}
+<h3>جزوه‌های درس: {{ course.title }}</h3>
+<a href="{% url 'notes:note_create' course.id %}">➕ افزودن جزوه جدید</a>
+<ul>
+    {% for note in notes %}
+        <li>
+            <strong>{{ note.title }}</strong> - {{ note.created_at|date:"Y/m/d" }}
+            <a href="{% url 'notes:note_edit' note.id %}">ویرایش</a>
+            <a href="{% url 'notes:note_delete' note.id %}">حذف</a>
+        </li>
+    {% empty %}
+        <li>هیچ جزوه‌ای برای این درس وجود ندارد.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'notes:course_list' %}">بازگشت به لیست دروس</a>
+{% endblock %}

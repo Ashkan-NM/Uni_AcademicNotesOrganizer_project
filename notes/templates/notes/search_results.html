@@ -1,0 +1,13 @@
+{% extends 'notes/base.html' %}
+{% block content %}
+<h3>نتایج جستجو برای: "{{ query }}"</h3>
+{% if results %}
+    <ul>
+    {% for note in results %}
+        <li><strong>{{ note.title }}</strong> (مربوط به درس: {{ note.course.title }})</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>هیچ جزوه‌ای پیدا نشد.</p>
+{% endif %}
+{% endblock %}

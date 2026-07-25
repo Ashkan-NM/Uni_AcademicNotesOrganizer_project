@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>سیستم مدیریت جزوات</title>
+    <style>
+        body { font-family: Tahoma; margin: 40px; background: #f9f9f9; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+        .header { display: flex; justify-content: space-between; background: #eee; padding: 10px; }
+        .course-item { border: 1px solid #ddd; margin: 10px 0; padding: 10px; }
+        .notes-list { margin-right: 30px; background: #f4f4f4; padding: 10px; }
+        button { background: blue; color: white; border: none; padding: 8px 12px; }
+        input, textarea { width: 100%; padding: 8px; margin: 5px 0; }
+        .search-box { margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>📚 جزوه‌های من</h2>
+            <div>
+                {% if user.is_authenticated %}
+                    <span>خوش آمدی {{ user.username }}!</span>
+                    <a href="{% url 'logout' %}">خروج</a>
+                {% else %}
+                    <a href="{% url 'login' %}">ورود</a> | <a href="{% url 'register' %}">ثبت نام</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="search-box">
+            <form action="{% url 'notes:search' %}" method="get">
+                <input type="text" name="q" placeholder="جستجو در متن جزوه‌ها ...">
+                <button type="submit">جستجو</button>
+            </form>
+        </div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
